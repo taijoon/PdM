@@ -1,7 +1,7 @@
 #influxdb
 
 influx
-
+====================================================================================
 > CREATE DATABASE mydb
 >
 > SHOW DATABASES
@@ -14,4 +14,42 @@ mydb
 >
 > USE mydb
 Using database mydb
+
 >
+> INSERT cpu,host=serverA,region=us_west value=0.64
+>
+> SELECT host, region, value FROM cpu
+name: cpu
+---------
+time                    host    region  value
+1472447149871932027     serverA us_west 0.64
+
+> SELECT host, value FROM cpu
+name: cpu
+---------
+time                    host    value
+1472447149871932027     serverA 0.64
+
+>
+> INSERT temperature,machine=unit42,type=assembly external=25,internal=37
+>
+> SELECT * FROM temperature
+name: temperature
+-----------------
+time                    external        internal        machine type
+1472447290564463274     25              37              unit42  assembly
+
+>
+====================================================================================
+
+pi@raspberrypi:~ $ curl -i -XPOST 'http://localhost:8086/write?db=mydb' --data-binary 'cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000'
+HTTP/1.1 204 No Content
+Request-Id: 22da117f-6dab-11e6-8019-000000000000
+X-Influxdb-Version: 0.13.0
+Date: Mon, 29 Aug 2016 05:40:47 GMT
+
+
+
+
+
+
