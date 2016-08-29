@@ -1,0 +1,17 @@
+#influxdb
+
+influx
+
+> CREATE DATABASE mydb
+>
+> SHOW DATABASES
+name: databases
+---------------
+name
+_internal
+mydb
+
+>
+> USE mydb
+Using database mydb
+>
